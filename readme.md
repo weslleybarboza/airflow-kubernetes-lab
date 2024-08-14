@@ -102,6 +102,46 @@ user/password: admin/admin
 helm uninstall airflow293 -n airflow apache-airflow/airflow
 ```
 
-# DBT
+# Deployment
+
+## Airflow
 https://medium.com/@dennis-sin/dbt-in-production-airflow-with-kubernetes-36db10d2a8f1
+https://medium.com/bluecore-engineering/were-all-using-airflow-wrong-and-how-to-fix-it-a56f14cb0753
+
+## Dbt
 https://medium.com/@dennis-sin/amazing-tool-when-developing-dbt-in-container-82405376b89d
+
+
+## Options
+
+### 1. Use the workers pod to process the data
+We can use the library Cosmos to create the dag and tasks.
+
+[![astronomer-cosmos](assets\images\cosmos_jaffle_shop_dag.png 'Codey the Codecademy mascot')](https://www.astronomer.io/docs/learn/airflow-dbt)
+
+Pros:
+- Easy to deploy
+- It will manage the sequence of each task and its dependence
+
+Cons:
+- The Airflow Python libraries versions can conflict with DBT libraries as we go along
+- Both projects (Dags and DBT) will be almost 100% attached as they share the same libraries
+- We can have issues if we decided to upgrade the versiont of one application, or it can block us to do upgrade.
+
+Questions:
+- Is possible the Cosmos library to launch a new pod as a task? If yes, we can enjoy it's orquestration and change the way that a task will be executed.
+
+### 2. For each task, we can launch one pod
+
+# Quality
+
+## Code
+https://www.getdbt.com/coalesce-2020/presenting-sqlfluff
+
+## Data
+https://zoltanctoth.medium.com/boost-your-dbt-tests-using-great-expectations-in-dbt-1c2d33d53fb3
+https://www.getdbt.com/coalesce-2020/building-a-robust-data-pipeline-with-dbt-airflow-and-great-expectations
+
+handoff
+kl diverged test
+distribuition test
