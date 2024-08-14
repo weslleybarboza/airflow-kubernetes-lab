@@ -102,6 +102,58 @@ user/password: admin/admin
 helm uninstall airflow293 -n airflow apache-airflow/airflow
 ```
 
+# Quality check
+
+## Code - using SQL FLUFF
+https://www.getdbt.com/coalesce-2020/presenting-sqlfluff
+
+[![tasks](assets\images\sqlfluff.jpg )](https://odsc.com/blog/building-a-robust-data-pipeline-with-the-dag-stack-dbt-airflow-and-great-expectations/)
+
+Allow us:
+- define the standard of the codes in terms of space, identation, good practices
+- we can define the rules and track the changes
+- can automaticaly format the code following the rules defined
+- for new employees, it helps to keep the standard
+
+CI/CD:
+- it can validate if the code follow the rules while building the image as a quality check.
+
+## Data
+
+https://zoltanctoth.medium.com/boost-your-dbt-tests-using-great-expectations-in-dbt-1c2d33d53fb3
+
+https://www.getdbt.com/coalesce-2020/building-a-robust-data-pipeline-with-dbt-airflow-and-great-expectations
+
+We have some libraries like:
+- dbt test
+- dbt expectation
+- great expectation
+
+Data needs to be tested.
+
+[![tasks](assets\images\test_flow.png )]
+
+### Dbt test
+- used for simple tests
+- we can build custom tests
+
+### Dbt expectation
+
+- into the box
+- we can set while we develop the project
+
+[![tasks](assets\images\dbt_expectation.png )]
+
+### Dbt Great expectation
+
+[![tasks](assets\images\great_expectations.png )]
+- it is library whith many tests
+- kl diverged test
+- distribuition test
+- statistics tests
+- can provide documentation/report of the data quality
+
+
 # Deployment
 
 ## Airflow
@@ -117,7 +169,7 @@ https://medium.com/@dennis-sin/amazing-tool-when-developing-dbt-in-container-824
 ### 1. Use the workers pod to process the data
 We can use the library Cosmos to create the dag and tasks.
 
-[![astronomer-cosmos](assets\images\cosmos_jaffle_shop_dag.png 'Codey the Codecademy mascot')](https://www.astronomer.io/docs/learn/airflow-dbt)
+[![astronomer-cosmos](assets\images\cosmos_jaffle_shop_dag.png )](https://www.astronomer.io/docs/learn/airflow-dbt)
 
 Pros:
 - Easy to deploy
@@ -131,17 +183,18 @@ Cons:
 Questions:
 - Is possible the Cosmos library to launch a new pod as a task? If yes, we can enjoy it's orquestration and change the way that a task will be executed.
 
-### 2. For each task, we can launch one pod
+### 2. For each task or group of task, we can launch one pod
 
-# Quality
+[![tasks](assets\images\airflow_dbt_tasks.png )](https://odsc.com/blog/building-a-robust-data-pipeline-with-the-dag-stack-dbt-airflow-and-great-expectations/)
 
-## Code
-https://www.getdbt.com/coalesce-2020/presenting-sqlfluff
+Pros:
+- We can use the pods to launch the jobs - avoiding packages conflicts
+- Is possible to manage the whole pipeline by layer - Example: run ingestion + test.
+- Combine DBT expectation with our pipeline testint each phase
+- We have the domain of what will be executed
 
-## Data
-https://zoltanctoth.medium.com/boost-your-dbt-tests-using-great-expectations-in-dbt-1c2d33d53fb3
-https://www.getdbt.com/coalesce-2020/building-a-robust-data-pipeline-with-dbt-airflow-and-great-expectations
+Cons:
+- We need to build/code all dags and the orchestration managing the dependencies of the pipeline
 
-handoff
-kl diverged test
-distribuition test
+Questions:
+- .
