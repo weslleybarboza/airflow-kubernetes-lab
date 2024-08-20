@@ -367,11 +367,11 @@ extraConfigMaps: {}
 # Extra env 'items' that will be added to the definition of airflow containers
 # a string is expected (can be templated).
 # TODO: difference from `env`? This is a templated string. Probably should template `env` and remove this.
-extraEnv: ~
+# extraEnv:
 # eg:
-# extraEnv: |
-#   - name: AIRFLOW__CORE__LOAD_EXAMPLES
-#     value: 'True'
+extraEnv: |
+  - name: AIRFLOW__CORE__LOAD_EXAMPLES
+    value: 'False'
 
 # Extra envFrom 'items' that will be added to the definition of airflow containers
 # A string is expected (can be templated).
@@ -434,7 +434,7 @@ fernetKey: ~
 fernetKeySecretName: ~
 
 # Flask secret key for Airflow Webserver: `[webserver] secret_key` in airflow.cfg
-webserverSecretKey: ~
+webserverSecretKey: 71d725babfe0b9933f7090c55c144a57
 webserverSecretKeySecretName: ~
 
 # In order to use kerberos you need to create secret containing the keytab file
