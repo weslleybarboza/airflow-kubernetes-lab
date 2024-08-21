@@ -199,4 +199,18 @@ Cons:
 Questions:
 - .
 
+# Changes for production
+
+
+``` sh
+helm upgrade airflow helm-charts/airflow --namespace airflow --values helm-charts/airflow/values.yaml
+```
+
+## Expose UI
+- check if the service type will be NodePort or LoadBalance as we are using a private clould. Line 1432.
+
+## Git 
+- Create secret for the system account. Line 2598
+
+
 
