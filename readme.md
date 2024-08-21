@@ -204,6 +204,10 @@ Questions:
 
 ``` sh
 helm upgrade airflow helm-charts/airflow --namespace airflow --values helm-charts/airflow/values.yaml
+
+# if needed restart
+kubectl get deployments --namespace airflow
+kubectl rollout restart deployment airflow-webserver --namespace airflow
 ```
 
 ## Expose UI
