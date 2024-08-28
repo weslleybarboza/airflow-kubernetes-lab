@@ -12,7 +12,7 @@ with DAG(
     example_kpo = KubernetesPodOperator(
         kubernetes_conn_id="k8s_conn",
         image="weslleybarboza/dbt:v1.0",
-        arguments=["build"]
+        arguments=["build"],
         name="spining_dbt_pod",
         task_id="task-one",
         is_delete_operator_pod=True,
